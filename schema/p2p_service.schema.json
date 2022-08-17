@@ -1,0 +1,42 @@
+{
+    "description": "P2p service related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "p2p_service_map": { "$ref": "#/$defs/mapStringP2pService" },
+      "p2p_service_bit_map": { "$ref": "#/$defs/mapStringP2pServiceBits" },
+      "key_id": { "string" },
+      "signature": { "string" }
+    },
+    "required": ["version", "p2p_service_map", "p2p_service_bit_map",
+        "key_id", "signature"],
+    "additionalProperties": false,
+    "$defs": {
+        "P2pService":
+        {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 13
+        },
+        "P2pServiceBit":
+        {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 64
+        },
+        "mapStringP2pServiceBits": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/P2pServiceBit" }
+            }
+        },
+        "mapStringP2pService": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/P2pService" }
+            }
+        }
+    }
+}
+

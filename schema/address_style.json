@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "address_style_map": {
+        "P2PKH": 1,
+        "P2SH": 2,
+        "P2WPKH": 3,
+        "P2WSH": 4,
+        "P2TR": 5
+    },
+    "key_id": {
+        "asd876asd766asd"
+    },
+    "signature": {
+        "kjhasdf987q345kjh3q4kj5hadfs8yaskjakjhsfdi8uy34kjkjafdkjhasd"
+    }
+}

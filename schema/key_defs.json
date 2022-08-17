@@ -1,0 +1,41 @@
+{
+    "version": 1,
+
+    "asymmetric_key_type_map": {
+        "AKEYTYPE_ERROR" : 0,
+        "AKEYTYPE_NULL" : 1,
+        "AKEYTYPE_LEGACY" : 2,
+        "AKEYTYPE_SECP256K1" : 3,
+        "AKEYTYPE_ED25519" : 4
+    },
+    "symmetric_key_type_map": {
+        "SKEYTYPE_ERROR" : 0,
+        "SKEYTYPE_RAW" : 1,
+        "SKEYTYPE_ECDH" : 2,
+        "SKEYTYPE_ARGON2" : 3,
+        "SKEYTYPE_ARGON2ID" : 4
+    },
+    "symmetric_mode_map": {
+        "SMODE_ERROR" : 0,
+        "SMODE_CHACHA20POLY1305" : 1
+    },
+    "key_mode_map": {
+        "KEYMODE_ERROR" : 0,
+        "KEYMODE_NULL" : 1,
+        "KEYMODE_PUBLIC" : 2,
+        "KEYMODE_PRIVATE" : 3
+    },
+    "key_role_map": {
+        "KEYROLE_ERROR" : 0,
+        "KEYROLE_AUTH" : 1,
+        "KEYROLE_ENCRYPT" : 2,
+        "KEYROLE_SIGN" : 3
+    },
+    "key_id": {
+        "asd876asd766asd"
+    },
+    "signature": {
+        "kjhasdf987q345kjh3q4kj5hadfs8yaskjakjhsfdi8uy34kjkjafdkjhasd"
+    }
+}
+

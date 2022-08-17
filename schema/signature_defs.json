@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "signature_role_map": {
+        "SIGROLE_ERROR" : 0,
+        "SIGROLE_PUBCREDENTIAL" : 1,
+        "SIGROLE_PRIVCREDENTIAL" : 2,
+        "SIGROLE_NYMIDSOURCE" : 3,
+        "SIGROLE_CLAIM" : 4,
+        "SIGROLE_SERVERCONTRACT" : 5,
+        "SIGROLE_UNITDEFINITION" : 6,
+        "SIGROLE_PEERREQUEST" : 7,
+        "SIGROLE_PEERREPLY" : 8,
+        "SIGROLE_CONTEXT" : 9,
+        "SIGROLE_ACCOUNT" : 10,
+        "SIGROLE_SERVERREQUEST" : 11,
+        "SIGROLE_SERVERREPLY" : 12,
+        "SIGROLE_NYM" : 13
+    },
+    "hash_type_map": {
+        "HASHTYPE_ERROR" : 0,
+        "HASHTYPE_NONE" : 1,
+        "HASHTYPE_SHA256" : 2,
+        "HASHTYPE_SHA512" : 3,
+        "HASHTYPE_BLAKE2B160" : 4,
+        "HASHTYPE_BLAKE2B256" : 5,
+        "HASHTYPE_BLAKE2B512" : 6,
+        "HASHTYPE_RIPEMD160" : 7,
+        "HASHTYPE_SHA1" : 8,
+        "HASHTYPE_SHA256D" : 9,
+        "HASHTYPE_SHA256DC" : 10,
+        "HASHTYPE_BITCOIN" : 11,
+        "HASHTYPE_SIPHASH24" : 12
+    },
+    "key_id": {
+        "asd876asd766asd"
+    },
+    "signature": {
+        "kjhasdf987q345kjh3q4kj5hadfs8yaskjakjhsfdi8uy34kjkjafdkjhasd"
+    }
+}
+

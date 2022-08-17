@@ -1,0 +1,21 @@
+{
+  "$id": "https://matterfi.com/schemas/nym",
+
+  "description": "Nym schema used in opentxs",
+  
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "nym_id": { "string" },
+    "nym_mode": { "$ref": "nym_defs.schema.json#/defs/NymMode" },
+    "index": { "$ref": "defs.schema.json#/defs/uint32" },
+    "revision": { "$ref": "defs.schema.json#/defs/uint64" },
+    "nym_id_source": { "$ref": "nym_defs.schema.json#/defs/NymIDSource" },
+    "active_credentials": { "$ref": "nym_defs.schema.json#/defs/AuthorityArray" },
+    "revoked_credentials": { "$ref": "nym_defs.schema.json#/defs/AuthorityArray" },
+    "signature": { "$ref": "signature_defs.schema.json#" }
+  },
+  "required": ["version", "nym_id", "nym_mode", "index", "revision",
+      "nym_id_source", "active_credentials", "revoked_credentials", "signature"],
+  "additionalProperties": false
+}

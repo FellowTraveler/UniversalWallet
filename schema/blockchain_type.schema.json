@@ -1,0 +1,26 @@
+{
+    "description": "Blockchain type related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "blockchain_type_map": { "$ref": "#/$defs/mapStringBlockchainType" }
+    },
+    "required": ["version", "blockchain_type_map"],
+    "additionalProperties": false,
+    "$defs": {
+        "BlockchainType":
+        {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 14
+        },
+        "mapStringBlockchainType": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/BlockchainType" }
+            }
+        }
+    }
+}
+

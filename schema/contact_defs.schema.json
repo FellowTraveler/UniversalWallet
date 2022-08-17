@@ -1,0 +1,126 @@
+{
+  "description": "Contact Item (credential)-related definitions used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "contact_section_name_map": { "$ref": "#/$defs/mapStringContactSectionName" },
+    "contact_item_type_map": { "$ref": "#/$defs/mapStringContactItemType" },
+    "contact_item_attribute_map": { "$ref": "#/$defs/mapStringContactItemAttribute" },
+    "key_id": { "string" },
+    "signature": { "string" }
+  },
+  "required": ["version", "contact_section_name_map", "contact_item_type_map",
+      "contact_item_attribute_map", "key_id", "signature"],
+  "additionalProperties": false,
+  "$defs": {
+      "ContactSectionName": { "type": "integer", "minimum" : 0, "maximum" : 13 },
+      "mapStringContactSectionName": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/ContactSectionName" }
+          }
+      },
+      "ContactItemType": { "type": "integer", "minimum" : 0, "maximum" : 425 },
+      "mapStringContactItemType": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/ContactItemType" }
+          }
+      },
+      "ContactItemAttribute": { "type": "integer", "minimum" : 0, "maximum" : 3 },
+      "mapStringContactItemAttribute": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/ContactItemAttribute" }
+          }
+      },
+      "ContactData": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "section": { "$ref": "#/defs/ContactSection" }
+          },
+          "required": ["version", "section"],
+          "additionalProperties": false
+      },
+      "ContactSection": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "section_name": { "$ref": "#/defs/ContactSectionName" },
+              "section_item": { "$ref": "#/defs/ContactItem" }
+          },
+          "required": ["version", "section_name", "section_item"],
+          "additionalProperties": false
+      },
+      "ContactItem": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "item_id": { "string" },
+              "item_type": { "$ref": "#/defs/ContactItemType" },
+              "item_value": { "string" },
+              "start": { "$ref": "defs.schema.json#/defs/int64" },
+              "end": { "$ref": "defs.schema.json#/defs/int64" },
+              "attributes": {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/ContactItemAttribute" }
+              },
+              "subtype": { "string" }
+          },
+          "required": ["version", "item_id", "item_type", "item_value",
+              "start", "end", "attributes", "subtype"],
+          "additionalProperties": false
+      },
+      "Verification": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "verification_id": { "string" },
+              "claim": { "string" },
+              "valid": { "boolean" },
+              "start": { "$ref": "defs.schema.json#/defs/int64" },
+              "end": { "$ref": "defs.schema.json#/defs/int64" },
+              "signature": { "$ref": "signature.schema.json#" },
+              "retracted": { "boolean" }
+          },
+          "required": ["version", "verification_id", "claim", "valid",
+              "start", "end", "signature", "retracted"],
+          "additionalProperties": false
+      },
+      "VerificationIdentity": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "nym": { "string" },
+              "verification": { "$ref": "#/defs/Verification" }
+          },
+          "required": ["version", "nym", "verification"],
+          "additionalProperties": false
+      },
+      "VerificationGroup": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "identity": { "$ref": "#/defs/VerificationIdentity" }
+          },
+          "required": ["version", "identity"],
+          "additionalProperties": false
+      },
+      "VerificationSet": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "internal": { "$ref": "#/defs/VerificationGroup" },
+              "external": { "$ref": "#/defs/VerificationGroup" },
+              "repudiated": {
+                  "type": "array",
+                  "items": { "string" }
+              },
+          },
+          "required": ["version", "internal", "external", "repudiated"],
+          "additionalProperties": false
+      }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$id": "https://matterfi.com/schemas/payment_code",
+
+  "description": "Payment code schema used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "key": { "string" },
+    "chaincode": { "string" },
+    "bitmessage": { "boolean" },
+    "bitmessage_version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "bitmessage_stream": { "$ref": "defs.schema.json#/defs/uint32" }
+  },
+  "required": ["version", "key", "bitmessage"],
+  "additionalProperties": false
+}

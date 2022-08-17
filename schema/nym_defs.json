@@ -1,0 +1,26 @@
+{
+    "version": 1,
+    
+    "nym_mode_map": {
+        "NYM_ERROR" : 0,
+        "NYM_PRIVATE" : 1,
+        "NYM_PUBLIC" : 2
+    },
+    "source_type_map": {
+        "SOURCETYPE_ERROR" : 0,
+        "SOURCETYPE_PUBKEY" : 1,
+        "SOURCETYPE_BIP47" : 2
+    },
+    "authority_mode_map": {
+        "AUTHORITYMODE_ERROR" : 0,
+        "AUTHORITYMODE_INDEX" : 1,
+        "AUTHORITYMODE_FULL" : 2
+    },
+    "key_id": {
+        "asd876asd766asd"
+    },
+    "signature": {
+        "kjhasdf987q345kjh3q4kj5hadfs8yaskjakjhsfdi8uy34kjkjafdkjhasd"
+    }
+}
+

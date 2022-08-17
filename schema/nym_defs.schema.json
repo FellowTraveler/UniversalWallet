@@ -1,0 +1,98 @@
+{
+  "description": "Nym definitions used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "nym_mode_map": { "$ref": "#/$defs/mapStringNymMode" },
+    "source_type_map": { "$ref": "#/$defs/mapStringSourceType" },
+    "authority_mode_map": { "$ref": "#/$defs/mapStringAuthorityMode" },
+    "key_id": { "string" },
+    "signature": { "string" }
+  },
+  "required": ["version", "nym_mode_map", "source_type_map", "key_id", "signature"],
+  "additionalProperties": false,
+  "$defs": {
+      "NymMode": { "type": "integer", "minimum" : 0, "maximum" : 2 },
+      "mapStringNymMode": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/NymMode" }
+          }
+      },
+      "SourceType": { "type": "integer", "minimum" : 0, "maximum" : 2 },
+      "mapStringSourceType": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/SourceType" }
+          }
+      },
+      "AuthorityMode": { "type": "integer", "minimum" : 0, "maximum" : 2 },
+      "mapStringAuthorityMode": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/AuthorityMode" }
+          }
+      },
+      "PaymentCode": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "key": { "string" },
+              "chaincode": { "string" },
+              "bitmessage": { "boolean" },
+              "bitmessage_version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "bitmessage_stream": { "$ref": "defs.schema.json#/defs/uint32" }
+          },
+          "required": ["version", "key", "chaincode", "bitmessage"],
+          "additionalProperties": false
+      },
+      "NymIDSource": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "type": { "$ref": "#/defs/SourceType" },
+              "oneOf": [
+                  { "source_key": { "$ref": "key_defs.schema.json#/defs/AsymmetricKey" } },
+                  { "source_paymentcode": { "$ref": "#/defs/PaymentCode" } }
+               ]
+          },
+          "required": ["version", "type"],
+          "oneOf": [
+              { "required": [ "source_key" ] },
+              { "required": [ "source_paymentcode" ] }
+          ],
+          "additionalProperties": false
+      },
+      "CredentialArray": {
+          "type": "array",
+          "items": {
+              "credential": { "$ref": "credential.schema.json#" }
+          }
+      },
+      "Authority": {
+          "description": "Todo: update 'required' list",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "nym_id": { "string" },
+              "master_id": { "string" },
+              "mode": { "$ref": "#/defs/AuthorityMode" },
+              "index": { "$ref": "defs.schema.json#/defs/uint32" },
+              "master_credential": { "$ref": "credential.schema.json#" },
+              "active_child_ids": { "$ref": "defs.schema.json#/defs/ArrayOfStrings" },
+              "active_children" : { "$ref": "#/defs/CredentialArray" },
+              "revoked_child_ids": { "$ref": "defs.schema.json#/defs/ArrayOfStrings" },
+              "revoked_children" : { "$ref": "#/defs/CredentialArray" }
+          },
+          "required": ["version", "nym_id", "master_id", "mode", "index"],
+          "additionalProperties": false
+      },
+      "AuthorityArray": {
+          "type": "array",
+          "items": {
+              "credential": { "$ref": "#/defs/Authority" }
+          }
+      }
+  }
+}

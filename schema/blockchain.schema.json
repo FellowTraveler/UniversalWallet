@@ -1,0 +1,169 @@
+{
+  "$id": "https://matterfi.com/schemas/blockchain",
+
+  "description": "Blockchain schema used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "blockchain_type": { "$ref": "blockchain_type.schema.json#/defs/BlockchainType" },
+    "block_header_type": { "$ref": "blockchain_defs.schema.json#/defs/BlockHeaderType" },
+    "transaction_builder_type": { "$ref": "blockchain_defs.schema.json#/defs/TransactionBuilderType" },
+    "supported": { "boolean" },
+    "testnet": { "boolean" },
+    "item_type": { "$ref": "unit_defs.schema.json#/defs/UnitType" },
+    "bip44": { "$ref": "bip44_type.schema.json#/defs/Bip44Type" },
+    "bits": { "$ref": "defs.schema.json#/defs/int32" },
+    "genesis_header_hex": { "string" },
+    "genesis_hash_hex": { "string" },
+    "genesis_block_hex": { "string" },
+    "checkpoint": { "$ref": "blockchain_defs.schema.json#/defs/Checkpoint" },
+    "default_filter_type": { "$ref": "blockchain_defs.schema.json#/defs/FilterType" },
+    "p2p_protocol": { "$ref": "p2p_protocol_type.schema.json#/defs/P2pProtocolType" },
+    "p2p_protocol_version": { "$ref": "blockchain_defs.schema.json#/defs/P2pProtocolVersion" },
+    "p2p_magic_bits": { "$ref": "defs.schema.json#/defs/uint32" },
+    "default_port": { "$ref": "defs.schema.json#/defs/uint16" },
+    "dns_seeds": { "$ref": "defs.schema.json#/defs/ArrayOfStrings" },
+    "default_fee_rate": { "integer" },
+    "block_download_batch": { "integer" },
+    "maturation_interval": { "$ref": "blockchain_defs.schema.json#/defs/BlockHeight" },
+    "cfilter_element_count_estimate": { "integer" },
+    "block_hashtype": { "string" },
+    "filter_hashtype": { "string" },
+    "p2p_message_hashtype": { "string" },
+    "proof_of_work_hashtype": { "string" },
+    "pubkey_hashtype": { "string" },
+    "script_hashtype": { "string" },
+    "script_segwit_hashtype": { "string" },
+    "transaction_hashtype": { "string" },
+    "bip158_filter_types": { "$ref": "#/defs/Bip158FilterTypeArray" },
+    "filters": { "$ref": "#/defs/FilterDataArray" },
+    "services" : { "$ref": "#/defs/mapP2pServiceByBit" },
+    "oneOf": [
+        { "bitcoin_params": { "$ref": "#/defs/BitcoinParams" } },
+        { "ethereum_params": { "$ref": "#/defs/EthereumParams" } },
+        { "casper_params": { "$ref": "#/defs/CasperParams" } }
+    ],
+    "oneOf": [
+        {
+            "initial_state" : {
+                "description": "Properties for a chain that starts at genesis 0",
+                "type": "object",
+                "properties": {
+                    "genesis_block_height": { "type": "integer", "enum" : [0] },
+                },
+                "required": ["genesis_block_height"],
+                "additionalProperties": false
+            }
+        },
+        {
+            "continuing_state" : {
+                "description": "Properties for a chain that has forked",
+                "type": "object",
+                "properties": {
+                    "previous_blockchain_type": { "$ref": "blockchain_type.schema.json#/defs/BlockchainType" },
+                    "continuing_block_height": { "$ref": "blockchain_defs.schema.json#/defs/BlockHeight" },
+                    "continuing_header_hex": { "string" },
+                    "continuing_hash_hex": { "string" },
+                    "continuing_block_hex": { "string" }
+                },
+                "required": ["previous_blockchain_type", "continuing_block_height", "continuing_header_hex", "continuing_hash_hex", "continuing_block_hex"],
+                "additionalProperties": false
+            }
+        }
+    ]
+  },
+  "required": ["version", "blockchain_type", "block_header_type",
+      "transaction_builder_type", "supported", "testnet", "item_type", "bip44",
+      "bits", "genesis_header_hex", "genesis_hash_hex", "genesis_block_hex",
+      "checkpoint", "default_filter_type", "p2p_protocol", "p2p_protocol_version",
+      "p2p_magic_bits", "default_port", "dns_seeds", "default_fee_rate",
+      "block_download_batch", "maturation_interval", "cfilter_element_count_estimate",
+      "block_hashtype", "filter_hashtype", "p2p_message_hashtype",
+      "proof_of_work_hashtype", "pubkey_hashtype", "script_hashtype",
+      "script_segwit_hashtype", "transaction_hashtype", "bip158_filter_types",
+      "filters", "services"],
+  "oneOf": [
+      { "required": [ "bitcoin_params" ] },
+      { "required": [ "ethereum_params" ] },
+      { "required": [ "casper_params" ] }
+  ],
+  "oneOf": [
+      { "required": [ "initial_state" ] },
+      { "required": [ "continuing_state" ] }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+      "BitcoinParams": {
+          "description": "Properties specific to Bitcoin-style chains. Note: Still missing SigHash flags",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "segwit": { "boolean" },
+              "segwit_scale_factor": { "integer" },
+              "script_map": { "$ref": "blockchain_defs.schema.json#/defs/ScriptMap" },
+              "styles": { "$ref": "blockchain_defs.schema.json#/defs/StylePref" },
+              "block_type" : {
+                  "type": "string",
+                  "enum": ["normal", "pkt"]
+              },
+              "input_signature_type" : {
+                  "type": "string",
+                  "enum": ["bch", "segwit"]
+              }
+          },
+          "required": ["version", "segwit", "segwit_scale_factor", "script_map",
+              "styles", "block_type"],
+          "additionalProperties": false
+      },
+      "EthereumParams": {
+          "description": "Properties specific to Ethereum-style chains",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" }
+          },
+          "required": ["version"],
+          "additionalProperties": false
+      },
+      "CasperParams": {
+          "description": "Properties specific to Casper-style chains",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" }
+          },
+          "required": ["version"],
+          "additionalProperties": false
+      },
+      "Bip158FilterTypeArray": {
+          "description": "Bip-158 filter types specific to a given blockchain",
+          "type": "array",
+          "items": {
+              "type": "object",
+              "properties": {
+                  "filter_type": { "$ref": "blockchain_defs.schema.json#/defs/FilterType" },
+                  "filter_value": { "$ref": "defs.schema.json#/defs/uint8" }
+              },
+              "additionalProperties": false
+          }
+      },
+      "FilterDataArray": {
+          "description": "Filter data specific to a given blockchain",
+          "type": "array",
+          "items": {
+              "type": "object",
+              "properties": {
+                  "filter_type": { "$ref": "blockchain_defs.schema.json#/defs/FilterType" },
+                  "filter_value": { "string" }
+              },
+              "additionalProperties": false
+          }
+      },
+      "mapP2pServiceByBit": {
+          "type": "object",
+          "description" : "key is p2p service bit, value is p2p service",
+          "patternProperties": {
+              ".{1,}": { "$ref": "p2p_service.schema.json#/$defs/P2pService" }
+          }
+      }
+  }
+}

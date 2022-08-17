@@ -1,0 +1,27 @@
+{
+    "description": "Token type related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "token_type_map": { "$ref": "#/$defs/mapStringTokenType" },
+      "key_id": { "string" },
+      "signature": { "string" }
+    },
+    "required": ["version", "token_type_map", "key_id", "signature"],
+    "additionalProperties": false,
+    "$defs": {
+        "TokenType": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+        },
+        "mapStringTokenType": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/TokenType" }
+            }
+        }
+    }
+}
+

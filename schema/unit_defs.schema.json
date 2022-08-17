@@ -1,0 +1,31 @@
+{
+    "description": "Unit type related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "unit_type_map": { "$ref": "#/$defs/mapStringUnitType" },
+      "equity_type_map": { "$ref": "#/$defs/mapStringEquityType" },
+      "key_id": { "string" },
+      "signature": { "string" }
+    },
+    "required": ["version", "unit_type_map", "key_id", "signature"],
+    "additionalProperties": false,
+    "$defs": {
+        "UnitType": { "type": "integer", "minimum" : 1, "maximum" : 300 },
+        "mapStringUnitType": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/UnitType" }
+            }
+        },
+        "EquityType": { "type": "integer", "minimum" : 0, "maximum" : 1 },
+        "mapStringEquityType": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/EquityType" }
+            }
+        }
+    }
+}
+

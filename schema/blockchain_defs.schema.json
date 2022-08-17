@@ -1,0 +1,50 @@
+{
+    "description": "Building blocks for blockchain-related definitions used in opentxs",
+    "$defs": {
+        "ScriptMap": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": { "$ref": "address_style.schema.json#/$defs/AddressStyle" },
+                    "value": "boolean"
+                }
+            }
+        },
+        "StylePref": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": { "$ref": "address_style.schema.json#/$defs/AddressStyle" },
+                    "value": "string"
+                }
+            }
+        },
+        "BlockHash": { "type": "string" },
+        "BlockHeight": { "$ref": "defs.schema.json#/defs/int64" },
+        "FilterType": { "$ref": "defs.schema.json#/defs/uint32" },
+        "FilterHeader": { "type": "string" },
+        "Checkpoint": {
+          "type": "object",
+          "properties": {
+            "height": { "$ref": "#/$defs/BlockHeight" },
+            "block_hash": { "$ref": "#/$defs/BlockHash" },
+            "previous_block_hash": { "$ref": "#/$defs/BlockHash" },
+            "filter_header": { "$ref": "#/$defs/FilterHeader" }
+          },
+          "required": ["height", "block_hash", "previous_block_hash", "filter_header"],
+          "additionalProperties": false
+        },
+        "P2pProtocolVersion": { "type": "integer" },
+        "BlockHeaderType" : {
+            "type": "string",
+            "enum": ["bitcoin", "ethereum", "casper"]
+        },
+        "TransactionBuilderType" : {
+            "type": "string",
+            "enum": ["bitcoin", "ethereum", "casper"]
+        }
+    }
+}
+

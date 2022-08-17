@@ -1,0 +1,56 @@
+{
+  "$id": "https://matterfi.com/schemas/token",
+
+  "description": "Token schema used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "token_id": { "string" },
+    "blockchain_type": { "$ref": "blockchain_type.schema.json#/defs/BlockchainType" },
+    "token_type": { "$ref": "token_type.schema.json#/defs/TokenType" },
+    "unit_type": { "$ref": "unit_defs.schema.json#/defs/UnitType" },
+    "genesis_txn_header_hex": { "string" },
+    "genesis_txn_hash_hex": { "string" },
+    "genesis_txn_block_hex": { "string" },
+    "oneOf": [
+        { "slp_params": { "$ref": "#/defs/SlpParams" } },
+        { "erc20_params": { "$ref": "#/defs/Erc20Params" } }
+     ]
+  },
+  "required": ["version", "token_id", "blockchain_type", "token_type",
+      "genesis_txn_header_hex", "genesis_txn_hash_hex", "genesis_txn_block_hex"],
+  "oneOf": [
+      { "required": [ "slp_params" ] },
+      { "required": [ "erc20_params" ] }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+      "SlpParams": {
+          "description": "Properties specific to SLP-style tokens",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "name": { "string" },
+              "ticker_symbol": { "string" },
+              "document_url": { "string" },
+              "receiver_address": { "string" },
+              "baton_address": { "string" }
+          },
+          "required": ["version", "receiver_address", "baton_address"],
+          "additionalProperties": false
+      },
+      "Erc20Params": {
+          "description": "Properties specific to ERC20-style tokens",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "contract_hex": { "string" }
+              "contract_hash_hex": { "string" }
+              "contract_address": { "string" }
+          },
+          "required": ["version", "contract_hex", "contract_hash_hex"],
+          "additionalProperties": false
+      }
+  }
+}

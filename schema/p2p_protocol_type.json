@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "p2p_protocol_type_map": {
+        "opentxs": 0,
+        "bitcoin": 1,
+        "ethereum": 2
+    },
+    "key_id": {
+        "asd876asd766asd"
+    },
+    "signature": {
+        "kjhasdf987q345kjh3q4kj5hadfs8yaskjakjhsfdi8uy34kjkjafdkjhasd"
+    }
+}

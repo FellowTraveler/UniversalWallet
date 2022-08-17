@@ -1,0 +1,116 @@
+{
+  "description": "Key-related definitions used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "asymmetric_key_type_map": { "$ref": "#/$defs/mapStringAsymmetricKeyType" },
+    "symmetric_key_type_map": { "$ref": "#/$defs/mapStringSymmetricKeyType" },
+    "symmetric_mode_map": { "$ref": "#/$defs/mapStringSymmetricMode" },
+    "key_mode_map": { "$ref": "#/$defs/mapStringKeyMode" },
+    "key_role_map": { "$ref": "#/$defs/mapStringKeyRole" },
+    "key_id": { "string" },
+    "signature": { "string" }
+  },
+  "required": ["version", "asymmetric_key_type_map", "symmetric_key_type_map",
+      "symmetric_mode_map", "key_mode_map", "key_role_map", "key_id", "signature"],
+  "additionalProperties": false,
+  "$defs": {
+      "AsymmetricKeyType": { "type": "integer", "minimum" : 0, "maximum" : 4 },
+      "mapStringAsymmetricKeyType": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/AsymmetricKeyType" }
+          }
+      },
+      "SymmetricKeyType": { "type": "integer", "minimum" : 0, "maximum" : 4 },
+      "mapStringSymmetricKeyType": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/SymmetricKeyType" }
+          }
+      },
+      "SymmetricMode": { "type": "integer", "minimum" : 0, "maximum" : 1 },
+      "mapStringSymmetricMode": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/SymmetricMode" }
+          }
+      },
+      "KeyMode": { "type": "integer", "minimum" : 0, "maximum" : 3 },
+      "mapStringKeyMode": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/KeyMode" }
+          }
+      },
+      "KeyRole": { "type": "integer", "minimum" : 0, "maximum" : 3 },
+      "mapStringKeyRole": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/KeyRole" }
+          }
+      },
+      "HDPath": {
+          "type": "object",
+          "description": "todo: 'required' field to be updated",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "root": { "string" },
+              "child": {
+                  "type": "array",
+                  "items": {
+                      "type": { "$ref": "defs.schema.json#/defs/uint32" }
+                  }
+              }
+          },
+          "required": ["version"]
+      },
+      "Ciphertext": {
+          "type": "object",
+          "description": "todo: 'required' field to be updated",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "mode": { "$ref": "#/$defs/SymmetricMode" },
+              "is_payload": { "boolean" },
+              "key": { "$ref": "#/defs/SymmetricKey" },
+              "iv": { "string" },
+              "tag": { "string" },
+              "data": { "string" }
+          },
+          "required": ["version"]
+      },
+      "SymmetricKey": {
+          "type": "object",
+          "description": "todo: 'required' field to be updated",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "symmetric_key_type": { "$ref": "#/$defs/SymmetricKeyType" },
+              "size": { "$ref": "defs.schema.json#/defs/uint32" },
+              "salt": { "string" },
+              "operations": { "$ref": "defs.schema.json#/defs/uint64" },
+              "difficulty": { "$ref": "defs.schema.json#/defs/uint64" },
+              "key": { "$ref": "#/defs/Ciphertext" },
+              "parallel": { "$ref": "defs.schema.json#/defs/uint64" }
+          },
+          "required": ["version", "symmetric_key_type"]
+      },
+      "AsymmetricKey": {
+          "type": "object",
+          "description": "todo: 'required' field to be updated",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "asymmetric_key_type": { "$ref": "#/$defs/AsymmetricKeyType" },
+              "mode": { "$ref": "#/$defs/KeyMode" },
+              "role": { "$ref": "#/$defs/KeyRole" },
+              "key": { "string" },
+              "encryptedKey": { "$ref": "#/$defs/Ciphertext" },
+              "chaincode": { "$ref": "#/$defs/Ciphertext" },
+              "path": { "$ref": "#/$defs/HDPath" },
+              "bip32_parent": { "$ref": "defs.schema.json#/defs/uint32" },
+              "params": { "string" }
+          },
+          "required": ["version", "asymmetric_key_type"]
+      }
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "description": "P2p protocol type related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "p2p_protocol_type_map": { "$ref": "#/$defs/mapStringP2pProtocolType" },
+      "key_id": { "string" },
+      "signature": { "string" }
+    },
+    "required": ["version", "p2p_protocol_type_map", "key_id", "signature"],
+    "additionalProperties": false,
+    "$defs": {
+        "P2pProtocolType": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+        },
+        "mapStringP2pProtocolType": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/P2pProtocolType" }
+            }
+        }
+    }
+}
+

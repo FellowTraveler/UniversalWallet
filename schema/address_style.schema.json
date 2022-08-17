@@ -1,0 +1,27 @@
+{
+    "description": "Address style related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "address_style_map": { "$ref": "#/$defs/mapStringAddressStyle" },
+      "key_id": { "string" },
+      "signature": { "string" }
+    },
+    "required": ["version", "address_style_map", "key_id", "signature"],
+    "additionalProperties": false,
+    "$defs": {
+        "AddressStyle": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+        },
+        "mapStringAddressStyle": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/AddressStyle" }
+            }
+        }
+    }
+}
+

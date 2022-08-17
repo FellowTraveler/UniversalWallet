@@ -1,0 +1,31 @@
+{
+  "description": "Signature-related definitions used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "signature_role_map": { "$ref": "#/$defs/mapStringSignatureRole" },
+    "hash_type_map": { "$ref": "#/$defs/mapStringHashType" },
+    "key_id": { "string" },
+    "signature": { "string" }
+  },
+  "required": ["version", "signature_role_map", "hash_type_map", "key_id",
+    "signature"],
+  "additionalProperties": false,
+  "$defs": {
+      "SignatureRole": { "type": "integer", "minimum" : 0, "maximum" : 13 },
+      "mapStringSignatureRole": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/SignatureRole" }
+          }
+      },
+      "HashType": { "type": "integer", "minimum" : 0, "maximum" : 12 },
+      "mapStringHashType": {
+          "type": "object",
+          "patternProperties": {
+              ".{1,}": { "$ref": "#/$defs/HashType" }
+          }
+      }
+  }
+}

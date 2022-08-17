@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "bip44_type_map": {
+        "BITCOIN" : 0,
+        "TESTNET" : 1,
+        "LITECOIN" : 2,
+        "DOGECOIN" : 3,
+        "REDDCOIN" : 4,
+        "DASH" : 5,
+        "PEERCOIN" : 6,
+        "NAMECOIN" : 7,
+        "FEATHERCOIN" : 8,
+        "COUNTERPARTY" : 9,
+        "BLACKCOIN" : 10,
+        "ETHER" : 60,
+        "BITCOINCASH" : 145,
+        "BITCOINSV" : 236,
+        "PKT" : 390,
+        "ECASH" : 899
+    }
+}
+

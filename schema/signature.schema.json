@@ -1,0 +1,16 @@
+{
+  "$id": "https://matterfi.com/schemas/signature",
+
+  "description": "Signature schema used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "credential_id": { "string" },
+    "role": { "$ref": "signature_defs.schema.json#/defs/SignatureRole" },
+    "hash_type": { "$ref": "signature_defs.schema.json#/defs/HashType" },
+    "signature": { "string" }
+  },
+  "required": ["version", "credential_id", "role", "hash_type", "signature"],
+  "additionalProperties": false
+}

@@ -1,0 +1,33 @@
+{
+    "description": "BIP-44 related definitions used in opentxs",
+    
+    "type": "object",
+    "properties": {
+      "version": { "$ref": "defs.schema.json#/defs/uint32" },
+      "bip44_type_map": { "$ref": "#/$defs/mapStringBip44Type" }
+    },
+    "required": ["version", "bip44_type_map"],
+    "additionalProperties": false,
+    "$defs": {
+        "Bip44Type": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10
+              },
+              {
+                "type": "integer",
+                "enum": [60, 145, 236, 390, 899]
+              }
+            ]
+        },
+        "mapStringBip44Type": {
+            "type": "object",
+            "patternProperties": {
+                ".{1,}": { "$ref": "#/$defs/Bip44Type" }
+            }
+        }
+    }
+}
+

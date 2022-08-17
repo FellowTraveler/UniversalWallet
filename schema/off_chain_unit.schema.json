@@ -1,0 +1,88 @@
+{
+  "$id": "https://matterfi.com/schemas/off_chain_unit",
+
+  "description": "Off-chain unit schema used in opentxs",
+
+  "type": "object",
+  "properties": {
+    "version": { "$ref": "defs.schema.json#/defs/uint32" },
+    "unit_definition_id": { "string" },
+    "oneOf": [
+        { "unit_type": { "$ref": "unit_defs.schema.json#/defs/UnitType" } },
+        { "blockchain_type": {
+            "$ref": "blockchain_type.schema.json#/defs/BlockchainType" } },
+        { "token_id": { "$ref": "token_type.schema.json#/defs/TokenType" } },
+        { "currency_params": { "$ref": "#/defs/CurrencyParams" } },
+        { "equity_params": { "$ref": "#/defs/EquityParams" } }
+     ],
+    "name": { "string" },
+    "terms": { "string" },
+    "redemption_increment": { "$ref": "defs.schema.json#/defs/uint64" },
+    "issuer_nym": { "$ref": "nym.schema.json#" },
+    "signature": { "string" }
+  },
+  "required": ["version", "unit_definition_id", "issuer_nym", "signature"],
+  "oneOf": [
+      { "required": [ "unit_type" ] },
+      { "required": [ "blockchain_type" ] },
+      { "required": [ "token_id" ] },
+      { "required": [ "currency_params" ] },
+      { "required": [ "equity_params" ] }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+      "ScaleRatio": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "base": { "$ref": "defs.schema.json#/defs/uint32" },
+              "power": { "$ref": "defs.schema.json#/defs/int32" }
+          },
+          "required": ["version", "base", "power"],
+          "additionalProperties": false
+      },
+      "DisplayScale": {
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "scale_name": { "string" },
+              "prefix": { "string" },
+              "suffix": { "string" },
+              "default_minimum_decimals": { "$ref": "defs.schema.json#/defs/uint32" },
+              "default_maximum_decimals": { "$ref": "defs.schema.json#/defs/uint32" },
+              "ratios": {
+                  "type": "array",
+                  "items": { "type": { "$ref": "#/defs/ScaleRatio" } }
+              }
+          },
+          "required": ["version", "scale_name", "prefix", "suffix",
+              "default_minimum_decimals", "default_maximum_decimals", "ratios"],
+          "additionalProperties": false
+      },
+      "CurrencyParams": {
+          "description": "Properties specific to off-chain currencies",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "unit_of_account": { "$ref": "contact_defs.schema.json#/$defs/ContactItemType" },
+              "short_name": { "string" },
+              "scales": {
+                  "type": "array",
+                  "items": { "type": { "$ref": "#/defs/DisplayScale" } }
+              }
+          },
+          "required": ["version", "unit_of_account", "short_name", "scales"],
+          "additionalProperties": false
+      },
+      "EquityParams": {
+          "description": "Properties specific to off-chain equities (shares)",
+          "type": "object",
+          "properties": {
+              "version": { "$ref": "defs.schema.json#/defs/uint32" },
+              "equity_type": { "$ref": "unit_defs.schema.json#/defs/EquityType" }
+          },
+          "required": ["version", "equity_type"],
+          "additionalProperties": false
+      }
+  }
+}
